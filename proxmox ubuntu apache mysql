@@ -45,5 +45,39 @@ root:~#sudo nano /etc/php/8.4/fpm/php.ini
 display_errors = On
 error_reporting = E_ALL
 
+4. Konfigurasi MySQL
+root:~# mysql -u root -p
+CREATE USER 'user'@'%' IDENTIFIED BY 'passwor';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+#Non aktifkan strict mode jika diperlukan
+root:~# nano /etc/mysql/mysql.conf.d/mysqld.cnf
+tambahkan di dalam [mysqld] line berikut:
+sql_mode = ""
+root:~# systemctl restart mysql
+
+5. Akses MySQL dari External DB Tools (SqlYog dll)
+root:~# nano /etc/mysql/mysql.conf.d/mysqld.cnf
+ubab bind-address = 127.0.0.1 menjadi bind-address = 0.0.0.0
+root:~# systemctl restart mysql
+
+Buka Firewall untuk Akses MySQL dari SQLyog
+root:~# ufw allow 3306/tcp
+sudo ufw enable ufw reload
+
+jika firewall belum di enable, 
+root:~# sudo ufw enable
+root:~# sudo ufw status
+reboot system jika diperlukan, cek kembali satus firewall
+root:~# sudo ufw status
+pastikan port apache dan mysql allow anywhere
+To                         Action      From
+--                         ------      ----
+80,443/tcp                 ALLOW       Anywhere                  
+3306/tcp                   ALLOW       Anywhere                  
+80,443/tcp (v6)            ALLOW       Anywhere (v6)             
+3306/tcp (v6)              ALLOW       Anywhere (v6)       
+
 
 
