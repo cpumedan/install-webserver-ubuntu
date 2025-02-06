@@ -79,5 +79,16 @@ To                         Action      From
 80,443/tcp (v6)            ALLOW       Anywhere (v6)             
 3306/tcp (v6)              ALLOW       Anywhere (v6)       
 
+jika ada maslah pada koneksi dengan error caching_sha2_password karena masalah password yg lemah, ubah password yg powerful
+atau
+ubah ke mysql_native_password dan set awllow LOW password
+
+root:~# mysql -u root -p
+SET GLOBAL validate_password.policy = LOW;
+SET GLOBAL validate_password.length = 6;
+ALTER USER 'username'@'%' IDENTIFIED WITH mysql_native_password BY 'new_password';
+tes koneksikan kembali ke sql yoq
+
+
 
 
