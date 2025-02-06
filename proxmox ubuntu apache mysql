@@ -1,0 +1,3 @@
+apt update && apt upgrade -y
+
+apt install apache2 php-fpm libapache2-mod-fcgid mysql-server php-mysql unzip -y
