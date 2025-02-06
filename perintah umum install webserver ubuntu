@@ -45,35 +45,47 @@ GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'localhost';	//Memberikan akses penuh k
 FLUSH PRIVILEGES;	//Memperbarui hak akses database.
 SHOW DATABASES;	//Menampilkan daftar database.
 
+Mengelola User dan Hak Akses
+=================================
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';	//Membuat user baru dengan nama username dan password password.
+GRANT ALL PRIVILEGES ON nama_database.* TO 'username'@'localhost';	//Memberikan akses penuh ke database tertentu untuk user yang ditentukan.
+FLUSH PRIVILEGES;	//Menyegarkan hak akses setelah membuat atau mengubah user.
+SHOW GRANTS FOR 'username'@'localhost';	//Menampilkan hak akses yang dimiliki oleh user tertentu.
+REVOKE ALL PRIVILEGES ON nama_database.* FROM 'username'@'localhost';	//Mencabut semua hak akses dari user yang ditentukan.
+DROP USER 'username'@'localhost';	//Menghapus user dari MySQL/MariaDB.
+
+
 Mengelola Database
 =============================
-SHOW DATABASES;	Menampilkan semua database yang ada di server MySQL/MariaDB.
-CREATE DATABASE nama_database;	Membuat database baru dengan nama nama_database.
-USE nama_database;	Menggunakan database yang sudah ada untuk melakukan query lebih lanjut.
-DROP DATABASE nama_database;	Menghapus database yang disebutkan. Hati-hati, perintah ini akan menghapus seluruh isi database.
-SHOW TABLES;	Menampilkan tabel-tabel yang ada dalam database yang sedang digunakan.
-DESCRIBE nama_tabel;	Menampilkan struktur tabel (kolom dan tipe data) dari tabel yang disebutkan.
-SHOW CREATE DATABASE nama_database;	Menampilkan query SQL untuk membuat database tertentu.
-SHOW TABLE STATUS;	Menampilkan status tabel, seperti ukuran, jumlah baris, dll.
+SHOW DATABASES;	//Menampilkan semua database yang ada di server MySQL/MariaDB.
+CREATE DATABASE nama_database;	//Membuat database baru dengan nama nama_database.
+USE nama_database;	//Menggunakan database yang sudah ada untuk melakukan query lebih lanjut.
+DROP DATABASE nama_database;	//Menghapus database yang disebutkan. Hati-hati, perintah ini akan menghapus seluruh isi database.
+SHOW TABLES;	//Menampilkan tabel-tabel yang ada dalam database yang sedang digunakan.
+DESCRIBE nama_tabel;	//Menampilkan struktur tabel (kolom dan tipe data) dari tabel yang disebutkan.
+SHOW CREATE DATABASE nama_database;	//Menampilkan query SQL untuk membuat database tertentu.
+SHOW TABLE STATUS;	//Menampilkan status tabel, seperti ukuran, jumlah baris, dll.
+
 
 Mengelola Tabel
 =======================
-CREATE TABLE nama_tabel (kolom1 tipe_data, kolom2 tipe_data, ...);	Membuat tabel baru dengan nama nama_tabel dan kolom-kolom yang didefinisikan.
-DROP TABLE nama_tabel;	Menghapus tabel nama_tabel.
-ALTER TABLE nama_tabel ADD kolom tipe_data;	Menambahkan kolom baru ke tabel yang sudah ada.
-ALTER TABLE nama_tabel DROP kolom;	Menghapus kolom dari tabel yang sudah ada.
-ALTER TABLE nama_tabel MODIFY kolom tipe_data;	Mengubah tipe data kolom dalam tabel.
-TRUNCATE TABLE nama_tabel;	Menghapus semua data dalam tabel, tetapi tetap menjaga struktur tabel.
+CREATE TABLE nama_tabel (kolom1 tipe_data, kolom2 tipe_data, ...);	//Membuat tabel baru dengan nama nama_tabel dan kolom-kolom yang didefinisikan.
+DROP TABLE nama_tabel;	//Menghapus tabel nama_tabel.
+ALTER TABLE nama_tabel ADD kolom tipe_data;	//Menambahkan kolom baru ke tabel yang sudah ada.
+ALTER TABLE nama_tabel DROP kolom;	//Menghapus kolom dari tabel yang sudah ada.
+ALTER TABLE nama_tabel MODIFY kolom tipe_data;	//Mengubah tipe data kolom dalam tabel.
+TRUNCATE TABLE nama_tabel;	//Menghapus semua data dalam tabel, tetapi tetap menjaga struktur tabel.
+EXPLAIN SELECT * FROM nama_tabel;	//Menampilkan penjelasan tentang bagaimana query SELECT dijalankan. Berguna untuk analisis performa.
+SHOW PROCESSLIST;	//Menampilkan daftar proses yang sedang berjalan di MySQL/MariaDB.
+SHOW VARIABLES;	//Menampilkan variabel sistem MySQL yang aktif.
+SHOW STATUS;	//Menampilkan status server MySQL.
 
-Mengelola User dan Hak Akses
-=================================
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';	Membuat user baru dengan nama username dan password password.
-GRANT ALL PRIVILEGES ON nama_database.* TO 'username'@'localhost';	Memberikan akses penuh ke database tertentu untuk user yang ditentukan.
-FLUSH PRIVILEGES;	Menyegarkan hak akses setelah membuat atau mengubah user.
-SHOW GRANTS FOR 'username'@'localhost';	Menampilkan hak akses yang dimiliki oleh user tertentu.
-REVOKE ALL PRIVILEGES ON nama_database.* FROM 'username'@'localhost';	Mencabut semua hak akses dari user yang ditentukan.
-DROP USER 'username'@'localhost';	Menghapus user dari MySQL/MariaDB.
 
+Backup dan Restore
+====================
+mysqldump -u root -p nama_database > backup.sql	//Membuat backup dari database nama_database ke file backup.sql.
+mysql -u root -p nama_database < backup.sql	//Restore database dari file backup backup.sql.
+mysqldump -u root -p --all-databases > backup_all.sql	//Membuat backup untuk semua database di server.
 
 
 
