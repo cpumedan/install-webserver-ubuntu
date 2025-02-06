@@ -1,3 +1,49 @@
 apt update && apt upgrade -y
 
-apt install apache2 php-fpm libapache2-mod-fcgid mysql-server php-mysql unzip -y
+1. Instalasi Apache dengan FPM
+----------------------------------
+root:~# apt install apache2 php-fpm libapache2-mod-fcgid mysql-server php-mysql unzip -y
+
+#Konfigurasi Apache dengan PHP-FPM
+root:~# a2enmod proxy_fcgi setenvif rewrite
+root:~# a2enconf php*-fpm
+root:~# systemctl restart apache2
+
+2. Edit File
+root:~# nano /etc/apache2/sites-available/000-default.conf
+#menjadi berikut
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php8.2-fpm.sock|fcgi://localhost"
+    </FilesMatch>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+//Pastikan versi php pada line SetHanler sesuai dengan versi php yang sudah terinstall(cek php -v)
+
+root:~# systemctl restart apache2
+
+3. Tes dengan Info PHP
+#buat file info.php di direktori web server (misalnya di /var/www/html):
+#periksa  izin akses file
+root:~# sudo chown -R www-data:www-data /var/www/html
+root:~# sudo chmod -R 755 /var/www/html
+
+#tampilkan error php pada sisi client , matikan jika di server production
+root:~#sudo nano /etc/php/8.4/fpm/php.ini
+display_errors = On
+error_reporting = E_ALL
+
+
+
