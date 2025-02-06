@@ -1,0 +1,79 @@
+Instalasi Web Server
+=======================
+sudo apt update && sudo apt upgrade -y	//Memperbarui daftar paket dan meng-upgrade sistem.
+sudo apt install apache2 -y	//Menginstal Apache Web Server.
+sudo apt install nginx -y	//Menginstal Nginx Web Server.
+sudo apt install php libapache2-mod-php php-mysql -y	//Menginstal PHP dan modul MySQL untuk Apache.
+sudo apt install mariadb-server -y	//Menginstal MariaDB (MySQL alternatif open-source).
+
+Mengelola Layanan Web Server
+=================================
+sudo systemctl start apache2	//Memulai layanan Apache.
+sudo systemctl stop apache2	//Menghentikan layanan Apache.
+sudo systemctl restart apache2	//Me-restart Apache (diperlukan setelah mengubah konfigurasi).
+sudo systemctl status apache2	//Melihat status layanan Apache.
+sudo systemctl enable apache2	//Mengaktifkan Apache agar otomatis berjalan saat booting.
+sudo systemctl disable apache2	//Menonaktifkan Apache saat booting.
+
+Mengelola Firewall untuk Web Server
+====================================
+sudo ufw allow 'Apache'	//Mengizinkan akses ke Apache melalui UFW Firewall.
+sudo ufw allow 'Nginx Full'	//Mengizinkan akses ke Nginx.
+sudo ufw allow 80/tcp	//Mengizinkan akses ke port 80 (HTTP).
+sudo ufw allow 443/tcp	//Mengizinkan akses ke port 443 (HTTPS).
+sudo ufw status	//Mengecek status firewall.
+sudo ufw enable	//Mengaktifkan firewall UFW.
+sudo ufw disable	//Menonaktifkan firewall UFW.
+
+Menginstal SSL (Let's Encrypt)
+==================================
+sudo apt install certbot python3-certbot-apache -y	//Menginstal SSL Let's Encrypt untuk Apache.
+sudo apt install certbot python3-certbot-nginx -y	//Menginstal SSL Let's Encrypt untuk Nginx.
+sudo certbot --apache -d example.com -d //www.example.com	Mendapatkan sertifikat SSL otomatis untuk Apache.
+sudo certbot --nginx -d example.com -d //www.example.com	Mendapatkan sertifikat SSL otomatis untuk Nginx.
+sudo certbot renew --dry-run	//Mengecek pembaruan otomatis SSL.
+
+
+Mengelola Database MySQL/MariaDB
+=====================================
+sudo mysql_secure_installation	//Mengamankan instalasi MySQL/MariaDB (atur password root, hapus akses anonim, dll.).
+sudo mysql -u root -p	//Masuk ke MySQL/MariaDB sebagai root.
+mysql -u username -p	//Masuk dengan user selain root. Ganti username dengan nama user yang diinginkan.
+CREATE DATABASE mydb;	//Membuat database baru dengan nama mydb.
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';	//Membuat user database baru.
+GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'localhost';	//Memberikan akses penuh ke database.
+FLUSH PRIVILEGES;	//Memperbarui hak akses database.
+SHOW DATABASES;	//Menampilkan daftar database.
+
+Mengelola Database
+=============================
+SHOW DATABASES;	Menampilkan semua database yang ada di server MySQL/MariaDB.
+CREATE DATABASE nama_database;	Membuat database baru dengan nama nama_database.
+USE nama_database;	Menggunakan database yang sudah ada untuk melakukan query lebih lanjut.
+DROP DATABASE nama_database;	Menghapus database yang disebutkan. Hati-hati, perintah ini akan menghapus seluruh isi database.
+SHOW TABLES;	Menampilkan tabel-tabel yang ada dalam database yang sedang digunakan.
+DESCRIBE nama_tabel;	Menampilkan struktur tabel (kolom dan tipe data) dari tabel yang disebutkan.
+SHOW CREATE DATABASE nama_database;	Menampilkan query SQL untuk membuat database tertentu.
+SHOW TABLE STATUS;	Menampilkan status tabel, seperti ukuran, jumlah baris, dll.
+
+Mengelola Tabel
+=======================
+CREATE TABLE nama_tabel (kolom1 tipe_data, kolom2 tipe_data, ...);	Membuat tabel baru dengan nama nama_tabel dan kolom-kolom yang didefinisikan.
+DROP TABLE nama_tabel;	Menghapus tabel nama_tabel.
+ALTER TABLE nama_tabel ADD kolom tipe_data;	Menambahkan kolom baru ke tabel yang sudah ada.
+ALTER TABLE nama_tabel DROP kolom;	Menghapus kolom dari tabel yang sudah ada.
+ALTER TABLE nama_tabel MODIFY kolom tipe_data;	Mengubah tipe data kolom dalam tabel.
+TRUNCATE TABLE nama_tabel;	Menghapus semua data dalam tabel, tetapi tetap menjaga struktur tabel.
+
+Mengelola User dan Hak Akses
+=================================
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';	Membuat user baru dengan nama username dan password password.
+GRANT ALL PRIVILEGES ON nama_database.* TO 'username'@'localhost';	Memberikan akses penuh ke database tertentu untuk user yang ditentukan.
+FLUSH PRIVILEGES;	Menyegarkan hak akses setelah membuat atau mengubah user.
+SHOW GRANTS FOR 'username'@'localhost';	Menampilkan hak akses yang dimiliki oleh user tertentu.
+REVOKE ALL PRIVILEGES ON nama_database.* FROM 'username'@'localhost';	Mencabut semua hak akses dari user yang ditentukan.
+DROP USER 'username'@'localhost';	Menghapus user dari MySQL/MariaDB.
+
+
+
+
