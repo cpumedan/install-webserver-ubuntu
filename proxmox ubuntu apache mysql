@@ -89,6 +89,12 @@ SET GLOBAL validate_password.length = 6;
 ALTER USER 'username'@'%' IDENTIFIED WITH mysql_native_password BY 'new_password';
 tes koneksikan kembali ke sql yoq
 
+6. Untuk clone git repository , tambahkan clasic token pada repository untuk autorisasi
+clone di folder /var/www/html
+tambahkan . pada perintah clone untuk extract langsung di folder html, atau hilangkan . untuk extract ke folder nama project
+contoh
+root:~# git clone  [url git repositori] . // extract tanpa folder
+root:~# git clone  [url git repositori]  // extract include folder
 
-
+7. Untuk konseksi FTP pastikan port 22 sudah allow Anywhere, check ufw status
 
