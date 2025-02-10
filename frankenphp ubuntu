@@ -1,1 +1,8 @@
+root:~# sudo apt update && sudo apt upgrade -y
+root:~# apt install curl
+root:~# curl https://frankenphp.dev/install.sh | sh
+PHP franken tidak memerlukan engine Apache ataupun NginX, langsung bisa digunakan
+
+Cara run server langsung serve di folder project (lokasi bebas)
+root:~# frankenphp php-server -r public/ (sesuaikan dengan nama folder project
 
