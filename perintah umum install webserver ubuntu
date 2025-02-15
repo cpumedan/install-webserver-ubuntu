@@ -1,4 +1,4 @@
-Instalasi Web Server
+## Instalasi Web Server
 =======================
 sudo apt update && sudo apt upgrade -y	//Memperbarui daftar paket dan meng-upgrade sistem.
 sudo apt install apache2 -y	//Menginstal Apache Web Server.
@@ -6,7 +6,7 @@ sudo apt install nginx -y	//Menginstal Nginx Web Server.
 sudo apt install php libapache2-mod-php php-mysql -y	//Menginstal PHP dan modul MySQL untuk Apache.
 sudo apt install mariadb-server -y	//Menginstal MariaDB (MySQL alternatif open-source).
 
-Mengelola Layanan Web Server
+## Mengelola Layanan Web Server
 =================================
 sudo systemctl start apache2	//Memulai layanan Apache.
 sudo systemctl stop apache2	//Menghentikan layanan Apache.
@@ -15,7 +15,7 @@ sudo systemctl status apache2	//Melihat status layanan Apache.
 sudo systemctl enable apache2	//Mengaktifkan Apache agar otomatis berjalan saat booting.
 sudo systemctl disable apache2	//Menonaktifkan Apache saat booting.
 
-Mengelola Firewall untuk Web Server
+## Mengelola Firewall untuk Web Server
 ====================================
 sudo ufw allow 'Apache'	//Mengizinkan akses ke Apache melalui UFW Firewall.
 sudo ufw allow 'Nginx Full'	//Mengizinkan akses ke Nginx.
@@ -25,7 +25,7 @@ sudo ufw status	//Mengecek status firewall.
 sudo ufw enable	//Mengaktifkan firewall UFW.
 sudo ufw disable	//Menonaktifkan firewall UFW.
 
-Menginstal SSL (Let's Encrypt)
+## Menginstal SSL (Let's Encrypt)
 ==================================
 sudo apt install certbot python3-certbot-apache -y	//Menginstal SSL Let's Encrypt untuk Apache.
 sudo apt install certbot python3-certbot-nginx -y	//Menginstal SSL Let's Encrypt untuk Nginx.
@@ -34,7 +34,7 @@ sudo certbot --nginx -d example.com -d //www.example.com	Mendapatkan sertifikat 
 sudo certbot renew --dry-run	//Mengecek pembaruan otomatis SSL.
 
 
-Mengelola Database MySQL/MariaDB
+## Mengelola Database MySQL/MariaDB
 =====================================
 sudo mysql_secure_installation	//Mengamankan instalasi MySQL/MariaDB (atur password root, hapus akses anonim, dll.).
 sudo mysql -u root -p	//Masuk ke MySQL/MariaDB sebagai root.
@@ -45,7 +45,7 @@ GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'localhost';	//Memberikan akses penuh k
 FLUSH PRIVILEGES;	//Memperbarui hak akses database.
 SHOW DATABASES;	//Menampilkan daftar database.
 
-Mengelola User dan Hak Akses
+## Mengelola User dan Hak Akses
 =================================
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';	//Membuat user baru dengan nama username dan password password.
 GRANT ALL PRIVILEGES ON nama_database.* TO 'username'@'localhost';	//Memberikan akses penuh ke database tertentu untuk user yang ditentukan.
@@ -55,7 +55,7 @@ REVOKE ALL PRIVILEGES ON nama_database.* FROM 'username'@'localhost';	//Mencabut
 DROP USER 'username'@'localhost';	//Menghapus user dari MySQL/MariaDB.
 
 
-Mengelola Database
+## Mengelola Database
 =============================
 SHOW DATABASES;	//Menampilkan semua database yang ada di server MySQL/MariaDB.
 CREATE DATABASE nama_database;	//Membuat database baru dengan nama nama_database.
@@ -67,7 +67,7 @@ SHOW CREATE DATABASE nama_database;	//Menampilkan query SQL untuk membuat databa
 SHOW TABLE STATUS;	//Menampilkan status tabel, seperti ukuran, jumlah baris, dll.
 
 
-Mengelola Tabel
+## Mengelola Tabel
 =======================
 CREATE TABLE nama_tabel (kolom1 tipe_data, kolom2 tipe_data, ...);	//Membuat tabel baru dengan nama nama_tabel dan kolom-kolom yang didefinisikan.
 DROP TABLE nama_tabel;	//Menghapus tabel nama_tabel.
@@ -81,7 +81,7 @@ SHOW VARIABLES;	//Menampilkan variabel sistem MySQL yang aktif.
 SHOW STATUS;	//Menampilkan status server MySQL.
 
 
-Backup dan Restore
+## Backup dan Restore
 ====================
 mysqldump -u root -p nama_database > backup.sql	//Membuat backup dari database nama_database ke file backup.sql.
 mysql -u root -p nama_database < backup.sql	//Restore database dari file backup backup.sql.
