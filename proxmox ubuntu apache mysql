@@ -98,3 +98,34 @@ root:~# git clone  [url git repositori]  // extract include folder
 
 7. Untuk konseksi FTP pastikan port 22 sudah allow Anywhere, check ufw status
 
+Tambahan Untuk Laravel
+pada .env file set IP/alamat APP_URL=http://your_vm_ip
+
+Set Permission Laravel
+sudo chown -R www-data:www-data /var/www/html/laravel
+sudo chmod -R 775 /var/www/html/laravel/storage /var/www/html/laravel/bootstrap/cache
+
+Buat file Virtual Host Laravel:
+sudo nano /etc/apache2/sites-available/laravel.conf
+isi dengan script berikut
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName your_vm_ip
+    DocumentRoot /var/www/html/{folder_app}/public
+
+    <Directory /var/www/html/laravel>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ProxyPassMatch ^/(.*\.php)$ fcgi://127.0.0.1:9000/var/www/html/{folder_app}/public/$1
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+Aktifkan konfigurasi apache
+sudo a2enmod proxy_fcgi setenvif
+sudo a2enconf php8.3-fpm
+sudo a2ensite laravel.conf
+sudo systemctl restart apache2
